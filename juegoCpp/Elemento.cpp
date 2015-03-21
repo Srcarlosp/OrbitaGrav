@@ -5,8 +5,8 @@
 #include "glut.h"
 #include "funciones_inline.h"
 
-float G = 6.67384F * powf(10.0F, -11.0F);
-float time_scale = 2.0F;
+double G = 6.67384F * pow(10.0, -11);
+float time_scale = 864.0F;
 
 #define TRACE_LONG 3000
 
@@ -85,17 +85,17 @@ void Elemento::doCalculus(int dim, int elem, Elemento *e)
 	{
 		if (i != elem)
 		{
-			float tempDist[3];
-			float tempModu;
+			double tempDist[3];
+			double tempModu;
 			for (int ii = 0; ii < 3; ii++)
 				tempDist[ii] = e[elem].posVec[ii] - e[i].posVec[ii];
 			tempModu = norma(tempDist);
 			for (int ii = 0; ii < 3; ii++)
-				e[elem].forVec[ii] += -G * ((e[elem].mass * e[i].mass) / tempModu) * tempDist[ii];
+				e[elem].forVec[ii] += -G * ((e[elem].mass * e[i].mass) / (tempModu * tempModu)) * tempDist[ii];
 		}
 	}
 	for (int ii = 0; ii < 3; ii++)
-		e[elem].accVec[ii] = e[elem].forVec[ii] / e[elem].mass;
+		e[elem].accVec[ii] = e[elem].forVec[ii] / (e[elem].mass);
 }
 
 void Elemento::doMove(int elem, Elemento *e)
@@ -113,17 +113,17 @@ void Elemento::doMove(int elem, Elemento *e)
 	tracePT++;
 }
 
-void Elemento::doDraw(int elem, Elemento *e)
+void Elemento::doDraw(int elem, Elemento *e, float scale)
 {
 	glColor3ub(e[elem].colorVec[rojo], e[elem].colorVec[verde], e[elem].colorVec[azul]);
-	glTranslatef(e[elem].posVec[x], e[elem].posVec[y], e[elem].posVec[z]);
+	glTranslatef(e[elem].posVec[x] / scale, e[elem].posVec[y] / scale, e[elem].posVec[z] / scale);
 	glutSolidSphere(e[elem].rad, 20, 20);
-	glTranslatef(-e[elem].posVec[x], -e[elem].posVec[y], -e[elem].posVec[z]);
+	glTranslatef(-e[elem].posVec[x] / scale, -e[elem].posVec[y] / scale, -e[elem].posVec[z] / scale);
 	glDisable(GL_LIGHTING);
 	for (int i = 0; i < TRACE_LONG; i++)
 	{
 		glBegin(GL_POINTS);
-		glVertex3f(e[elem].trace[i][x], e[elem].trace[i][y], e[elem].trace[i][z]);
+		glVertex3f(e[elem].trace[i][x] / scale, e[elem].trace[i][y] / scale, e[elem].trace[i][z] / scale);
 		glEnd();
 	}
 	glEnable(GL_LIGHTING);

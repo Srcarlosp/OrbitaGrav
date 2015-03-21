@@ -14,9 +14,9 @@ public:
 	enum ejes { x, y, z };
 	float posVec[3];
 	float velVec[3];
-	float accVec[3];
-	float forVec[3];
-	float mass = 1;
+	double accVec[3];
+	double forVec[3];
+	double mass = 1;
 	//Metodos del objeto dibujo
 	void setColor(unsigned char r = 255, unsigned char v = 255, unsigned char a = 255);
 	void setColor(int elem, Elemento *e, unsigned char r = 255, unsigned char v = 255, unsigned char a = 255);
@@ -31,6 +31,6 @@ public:
 	//Metodos calculo
 	void doCalculus(int dim, int elem, Elemento *e);
 	void doMove(int elem, Elemento *e);
-	void doDraw(int elem, Elemento *e);
+	void doDraw(int elem, Elemento *e, float scale = 1);
 };
 
