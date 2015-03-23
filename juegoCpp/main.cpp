@@ -11,7 +11,7 @@ void OnDraw(void);
 void OnTimer(int value); 
 void OnKeyboardDown(unsigned char key, int x, int y);
 
-const int dim = 3;
+const int dim = 6;
 //Objetos Primarios
 Elemento myElem;
 Elemento e[dim];
@@ -81,7 +81,6 @@ void inicializaObjetos()
 	e[5].setMass(500.0F);
 	*/
 }
-
 
 void inicializaObjetosCC()
 {
@@ -190,7 +189,7 @@ int main(int argc,char* argv[])
 	//Abre la ventana y GL
 	inicializaVentana(argc, argv);
 	//Crea los objetos
-	inicializaObjetos();
+	inicializaObjetosLunasEstables();
 	//pasarle el control a GLUT,que llamara a los callbacks 
 	glutMainLoop(); 
 

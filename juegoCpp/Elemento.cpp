@@ -6,7 +6,7 @@
 #include "funciones_inline.h"
 
 double G = 6.67384F * pow(10.0, -11);
-float time_scale = 864.0F;
+float time_scale = 0.5F;
 
 #define TRACE_LONG 3000
 
